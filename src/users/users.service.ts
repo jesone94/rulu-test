@@ -14,12 +14,15 @@ export class UsersService {
     return new ApiResponse(true, { id });
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(efficiency?: number, role?: string) {
+    const users = await this.prisma.user.findMany({ where: { efficiency, role } });
+    return new ApiResponse(true, { users });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id?: number, efficiency?: number, role?: string) {
+    const user = await this.prisma.user.findUnique({ where: { id, efficiency, role } });
+
+    return new ApiResponse(true, { users: user ?? [] });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
