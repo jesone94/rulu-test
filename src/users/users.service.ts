@@ -30,7 +30,8 @@ export class UsersService {
     return new ApiResponse(true, { ...updatedUser });
   }
 
-  remove(id: number) {
-    return this.prisma.user.delete({ where: { id } });
+  async remove(id: number) {
+    const deletedUser = await this.prisma.user.delete({ where: { id } });
+    return new ApiResponse(true, { ...deletedUser });
   }
 }
