@@ -25,11 +25,12 @@ export class UsersService {
     return new ApiResponse(true, { users: user ?? [] });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.prisma.user.update({ where: { id }, data: updateUserDto });
+    return new ApiResponse(true, { ...updatedUser });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.prisma.user.delete({ where: { id } });
   }
 }

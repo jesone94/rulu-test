@@ -23,17 +23,17 @@ export class UsersController {
   @ApiQuery({ name: 'efficiency', required: false, type: Number })
   @ApiQuery({ name: 'role', required: false })
   @Get('/get/:id')
-  findOne(@Param('id', new ParseIntPipe) id: number, @Query('efficiency', new ParseIntPipe({ optional: true })) efficiency?: number, @Query('role') role?: string) {
+  findOne(@Param('id', new ParseIntPipe()) id: number, @Query('efficiency', new ParseIntPipe({ optional: true })) efficiency?: number, @Query('role') role?: string) {
     return this.usersService.findOne(id, efficiency, role);
   }
 
   @Patch('/update/:id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  update(@Param('id', new ParseIntPipe()) id: number, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete('/delete/:id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('id', new ParseIntPipe()) id: number) {
+    return this.usersService.remove(id); 
   }
 }
