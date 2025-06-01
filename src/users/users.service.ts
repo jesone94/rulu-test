@@ -16,6 +16,7 @@ export class UsersService {
 
   async findAll(efficiency?: number, role?: string) {
     const users = await this.prisma.user.findMany({ where: { efficiency, role } });
+
     return new ApiResponse(true, { users });
   }
 
@@ -27,11 +28,13 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const updatedUser = await this.prisma.user.update({ where: { id }, data: updateUserDto });
+
     return new ApiResponse(true, { ...updatedUser });
   }
 
   async remove(id: number) {
     const deletedUser = await this.prisma.user.delete({ where: { id } });
+
     return new ApiResponse(true, { ...deletedUser });
   }
 }
