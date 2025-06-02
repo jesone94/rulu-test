@@ -27,14 +27,28 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const updatedUser = await this.prisma.user.update({ where: { id }, data: updateUserDto });
+    try {
+      const updatedUser = await this.prisma.user.update({ where: { id }, data: updateUserDto });
 
-    return new ApiResponse(true, { ...updatedUser });
+      return new ApiResponse(true, { ...updatedUser });
+    } catch (error) {
+      return new ApiResponse(false, error.message);
+    }
   }
 
   async remove(id: number) {
-    const deletedUser = await this.prisma.user.delete({ where: { id } });
+    try {
+      const deletedUser = await this.prisma.user.delete({ where: { id } });
 
-    return new ApiResponse(true, { ...deletedUser });
+      return new ApiResponse(true, { ...deletedUser });
+    } catch (error) {
+      return new ApiResponse(false, error.message);
+    }
+  }
+
+  async removeAll() {
+    await this.prisma.user.deleteMany({});
+
+    return new ApiResponse(true);
   }
 }
