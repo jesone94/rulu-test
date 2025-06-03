@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id         Int      @id @default(autoincrement())
-  fullName   String   
+  full_name   String   
   role       String
   efficiency Int
 }

@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsNumber, IsString, Max, Min } from "class-validator"
 
 export class CreateUserDto {
-    @IsString({ message: 'fullName must be a string' })
-    @IsNotEmpty({ message: 'fullName is required' })
-    fullName: string
+    @IsString({ message: 'full_name must be a string' })
+    @IsNotEmpty({ message: 'full_name is required' })
+    full_name: string
 
     @IsString({ message: 'role must be a string' })
     @IsNotEmpty({ message: 'role is required' })
